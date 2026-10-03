@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Compte à Rebours Simple</title>
+  <style>
+    /* Style de base */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    /* Conteneur des boîtes */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* Chaque boîte (jours, heures, etc.) */
+    .box {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 3px 3px 10px #000;
+    }
+
+    .number {
+      font-size: clamp(30px, 5vw, 60px); /* taille responsive */
+      font-weight: bold;
+    }
+
+    .label {
+      font-size: clamp(14px, 2vw, 20px);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Compte à Rebours jusqu'à l'Événement</h1>
+
+  <div class="countdown">
+    <div class="box">
+      <div class="number" id="days">00</div>
+      <div class="label">Jours</div>
+    </div>
+    <div class="box">
+      <div class="number" id="hours">00</div>
+      <div class="label">Heures</div>
+    </div>
+    <div class="box">
+      <div class="number" id="minutes">00</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="box">
+      <div class="number" id="seconds">00</div>
+      <div class="label">Secondes</div>
+    </div>
+  </div>
+
+  <script>
+    // Fonction qui met à jour le compte à rebours
+    function miseAJour() {
+      // Date cible de l'événement
+      var dateEvenement = new Date("2025-12-31T23:59:59").getTime();
+
+      // Date actuelle
+      var maintenant = new Date().getTime();
+
+      // Différence entre les deux (en millisecondes)
+      var tempsRestant = dateEvenement - maintenant;
+
+      // Calcul du temps
+      var secondes = Math.floor((tempsRestant / 1000) % 60);
+      var minutes = Math.floor((tempsRestant / (1000 * 60)) % 60);
+      var heures = Math.floor((tempsRestant / (1000 * 60 * 60)) % 24);
+      var jours = Math.floor(tempsRestant / (1000 * 60 * 60 * 24));
+
+      // Affichage dans le HTML
+      document.getElementById("days").innerText = jours;
+      document.getElementById("hours").innerText = heures;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = secondes;
+    }
+
+    // Appel la fonction toutes les secondes
+    setInterval(miseAJour, 1000);
+
+    // Appel immédiat au début
+    miseAJour();
+  </script>
+
+</body>
+</html>
